@@ -1,23 +1,49 @@
 //primero: seleccionamos el elemnto canvas.
 const canvas = document.querySelector("canvas");
+
+//Ejemplo de botones rápidos para probar pausa...
 const a = document.querySelector("#a");
 const b = document.querySelector("#b");
 a.addEventListener("click", empezar);
 b.addEventListener("click", detener);
 
+//se genera el contexto
 const ctx = canvas.getContext("2d");
+//color de relleno
 ctx.fill = "#1d1d1d";
+//volumne
 const VOLUMEN = [10, 10];
-const MULTIPLO = 1;
+const MULTIPLO = 5;
 const VELOCIDAD = 1;
+//hago un cuadrado en el lienzo
 ctx.fillRect(10, 10, ...VOLUMEN);
 
 //variable que indica para dónde se movería la serpiente
 let direccion;
 
 //creo un objeto controles con:info de la direccion e info de la serpiente:
-let controles = { direccion: { x: 1, y: 0 }, serpiente: [{ x: 0, y: 0 }] };
-console.log(controles.direccion, controles.serpiente[0]);
+let controles = {
+  direccion: { x: 1, y: 0 },
+  serpiente: [
+    { x: 160, y: 0 },
+    { x: 150, y: 0 },
+    { x: 140, y: 0 },
+    { x: 130, y: 0 },
+    { x: 120, y: 0 },
+    { x: 110, y: 0 },
+    { x: 100, y: 0 },
+    { x: 90, y: 0 },
+    { x: 80, y: 0 },
+    { x: 70, y: 0 },
+    { x: 60, y: 0 },
+    { x: 50, y: 0 },
+    { x: 40, y: 0 },
+    { x: 30, y: 0 },
+    { x: 20, y: 0 },
+    { x: 10, y: 0 },
+    { x: 0, y: 0 },
+  ],
+};
 
 // constante Direccion, es un objeto con todas las posiblidade de direccion que podemos tomar
 const DIRECCION = {
@@ -48,12 +74,23 @@ document.addEventListener("keydown", (e) => {
 });
 
 const dibujar = (x, y) => {
+  console.log(controles.serpiente);
   ctx.clearRect(0, 0, 500, 500);
-  ctx.fillRect(
-    controles.serpiente[0].x * MULTIPLO,
-    controles.serpiente[0].y * MULTIPLO,
-    ...VOLUMEN
-  );
+  for (let index = controles.serpiente.length - 1; index >= 0; index--) {
+    if (index === 0) {
+      ctx.fillRect(
+        controles.serpiente[index].x * MULTIPLO,
+        controles.serpiente[index].y * MULTIPLO,
+        ...VOLUMEN
+      );
+    } else {
+      ctx.fillRect(
+        controles.serpiente[index - 1].x * MULTIPLO,
+        controles.serpiente[index - 1].y * MULTIPLO,
+        ...VOLUMEN
+      );
+    }
+  }
 };
 
 const looper = () => {
@@ -69,15 +106,34 @@ const looper = () => {
 //interesanteeee. en vez de loooper
 const animacionRepetimos = () => {
   let { x, y } = controles.direccion;
-  controles.serpiente[0].x += x;
-  controles.serpiente[0].y += y;
-  console.log("raf");
+  controles.serpiente[0].x += x * 10;
+  controles.serpiente[0].y += y * 10;
+
   ctx.clearRect(0, 0, 500, 500);
-  ctx.fillRect(
-    controles.serpiente[0].x * MULTIPLO,
-    controles.serpiente[0].y * MULTIPLO,
-    ...VOLUMEN
-  );
+  console.log(controles.serpiente);
+  for (let index = controles.serpiente.length - 1; index >= 0; index--) {
+    //   ctx.fillRect(
+    //     controles.serpiente[index].x,
+    //     controles.serpiente[index].y,
+    //     ...VOLUMEN
+    //   );
+    if (index === 0) {
+      ctx.fillRect(
+        controles.serpiente[index].x * MULTIPLO,
+        controles.serpiente[index].y * MULTIPLO,
+        ...VOLUMEN
+      );
+    } else {
+      controles.serpiente[index].x = controles.serpiente[index - 1].x;
+      controles.serpiente[index].y = controles.serpiente[index - 1].y;
+      ctx.fillRect(
+        controles.serpiente[index].x,
+        controles.serpiente[index].y,
+        ...VOLUMEN
+      );
+    }
+  }
+
   globalID = requestAnimationFrame(animacionRepetimos);
 };
 window.onload = () => {
