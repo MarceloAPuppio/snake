@@ -40,27 +40,29 @@ canvas {
   background: chartreuse;
   top: 0;
   left: 0;
-  border-radius: 0px 0px 10px 10px;
+  border-radius: 3px 3px 6px 6px;
   display: grid;
   place-items: center;
-  transform: rotate(var(--rotate)) scale(1.4);
+  transform: rotate(var(--rotate)) scale(1.2);
   z-index: 1;
 }
-/* .head::before {
-  content: "🔻";
+.head::before {
+  content: "|";
   font-size: 6px;
   position: absolute;
-  left: 1px;
+  left: 4px;
   top: 7px;
   z-index: -1;
+  color: red;
+  font-weight: 800;
 }
 
-.head::after {
-  content: "👀";
-  font-size: 8px;
+/* .head::after {
+  content: "⚫⚫";
+  font-size: 4px;
   position: absolute;
   left: -0.5px;
-  top: -2px;
+  top: 2px;
   z-index: -1;
 } */
 .tail {
@@ -69,7 +71,7 @@ canvas {
   left: 0;
   border-radius: 3px;
   border: solid rgb(149, 209, 167) 1px;
-  transition: all 0.1s;
+  /* transition: all 75ms; */
 }
 .tail:last-child {
   background: rgb(9, 116, 41);

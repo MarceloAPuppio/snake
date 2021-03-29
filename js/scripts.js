@@ -136,5 +136,5 @@ window.onload = () => {
   dibujarVictima(controles.victima.y, controles.victima.x);
   myInterval = setInterval(() => {
     dibujar();
-  }, 80);
+  }, 40);
 };
