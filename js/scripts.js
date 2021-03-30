@@ -111,14 +111,14 @@ window.addEventListener("keydown", (e) => {
 
 window.addEventListener("touchstart", function (e) {
   let { x, y } = controles.touch;
-  x = e.touches[0].clientX;
-  y = e.touches[0].clientY;
+  x = e.touches[0].pageX;
+  y = e.touches[0].pageY;
 });
 window.addEventListener("touchmove", function (e) {
-  if (controles.touch.x > e.touches[0].clientX) stop.innerHTML = "izquierda";
-  if (controles.touch.x < e.touches[0].clientX) stop.innerHTML = "derecha";
-  if (controles.touch.y < e.touches[0].clientY) stop.innerHTML = "abajo";
-  if (controles.touch.y > e.touches[0].clientY) stop.innerHTML = "arriba";
+  stop.innerHTML = `x:${e.touches[0].pageX} y:${e.touches[0].pageY}`;
+  // if (controles.touch.x < e.touches[0].pageX) stop.innerHTML = "derecha";
+  // if (controles.touch.y < e.touches[0].pageY) stop.innerHTML = "abajo";
+  // if (controles.touch.y > e.touches[0].pageY) stop.innerHTML = "arriba";
 });
 
 const atrapado = () => {
