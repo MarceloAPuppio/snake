@@ -4,22 +4,107 @@
 * {
   box-sizing: border-box;
 }
+
+@font-face {
+  font-family: gamer;
+  src: url(../fonts/pixelart.woff);
+}
 body {
   text-align: center;
   margin: 60px 0 0 0;
   display: grid;
+  grid-template-columns: 1fr 500px 1fr;
+  grid-template-rows: 1fr;
+  grid-template-areas: "score" "game" "buttons";
+  background: #080808;
+
   place-items: center;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
 }
 canvas {
   border: solid 6px white;
   background: cornflowerblue;
 }
 
-.snake-wrapper {
-  position: relative;
+.gameover {
+  grid-area: "game";
+  z-index: 999;
   width: 500px;
   height: 500px;
-  background: black;
+  background: #0f0f0f;
+  position: absolute;
+  top: 0;
+  backdrop-filter: blur(5px);
+  font-family: gamer;
+  font-size: 48px;
+  letter-spacing: 6px;
+  line-height: 70px;
+  display: flex;
+  display: none; /*eliminar esta linea*/
+  flex-flow: column wrap;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
+.gameover:hover .firstWord,
+.gameover:hover .secondWord {
+  top: 0;
+}
+.gameover:hover .firstWord {
+  text-shadow: 0 0.5px 3px rgb(25, 196, 25);
+}
+.gameover:hover .secondWord {
+  text-shadow: 0 2px 5px rgb(25, 196, 25);
+}
+.firstWord {
+  transition: all 0.3s ease-in-out;
+  position: relative;
+  /* top: -500px; descomentar para efecto hover*/
+  margin: 0;
+}
+.secondWord {
+  /* top: 1000px; descomentar para efecot hover*/
+  position: relative;
+  transition: all 0.8s cubic-bezier(0.18, 0.89, 0.34, 1.27);
+  margin: 0;
+}
+.gameover:hover .gameover__btn {
+  box-shadow: 0 0 25px rgb(25, 196, 25), 0 0 50px rgb(25, 196, 25),
+    0 0 100px rgb(25, 196, 25), 0 0 200px rgb(25, 196, 25);
+  background: rgb(25, 196, 25);
+  color: rgb(0, 0, 0);
+}
+.gameover__btn {
+  letter-spacing: 2px;
+  margin-top: 50px;
+  border: none;
+  height: 40px;
+  width: 120px;
+  border-radius: 5px;
+  color: rgb(25, 196, 25);
+  border: dashed 2px rgb(25, 196, 25);
+  background: transparent;
+}
+/* .translateDown {
+  top: 0;
+}
+.translateTop {
+  top: 0;
+} */
+
+.snake-wrapper {
+  grid-area: "game";
+  position: relative;
+  border-radius: 5px;
+  width: 500px;
+  height: 500px;
+  border-radius: 5px;
+  background: linear-gradient(145deg, #070707, #090909);
+  box-shadow: 5px 5px 10px #050505, -5px -5px 10px #0b0b0b;
+  /* box-shadow: inset 5px 5px 8px 2px #bebebe, inset -5px -5px 8px 2px whitesmoke; */
+  overflow: hidden;
 }
 /* .snake-wrapper::before {
   content: "";
@@ -35,6 +120,7 @@ canvas {
   width: 10px;
   height: 10px;
   position: absolute;
+  box-shadow: 0 0 5px rgb(25, 196, 25), 0 0 10px rgb(25, 196, 25);
 }
 .head {
   background: chartreuse;
@@ -57,14 +143,6 @@ canvas {
   font-weight: 800;
 }
 
-/* .head::after {
-  content: "⚫⚫";
-  font-size: 4px;
-  position: absolute;
-  left: -0.5px;
-  top: 2px;
-  z-index: -1;
-} */
 .tail {
   background: rgb(117, 204, 31);
   top: 0;
@@ -91,9 +169,20 @@ canvas {
 }
 .victima::before {
   content: "🍒";
+  filter: drop-shadow(0px 0px 10px red);
   line-height: 0;
   font-size: 16px;
   position: absolute;
   top: 2px;
   left: -4px;
+}
+.marcador {
+  grid-area: score;
+  font-family: gamer;
+  font-size: 25px;
+  color: whitesmoke;
+}
+.marcador__puntaje {
+  color: whitesmoke;
+  text-shadow: -2px 0px 10px;
 }

@@ -34,6 +34,8 @@ const DIRECCION = {
 };
 let myInterval;
 const stop = document.querySelector("#stop");
+const puntaje = document.querySelector("#puntaje");
+let puntajeTotal = 0;
 stop.addEventListener("click", () => {
   clearInterval(myInterval);
 });
@@ -41,6 +43,8 @@ let controles = {
   direccion: { x: 0, y: MOVIMIENTO },
   victima: { x: 0, y: 250 },
   rotate: 0,
+  jugando: false,
+  touch: { x: 0, y: 0 },
 };
 //hago referencia a la serpiente
 const container = document.querySelector(".snake-wrapper");
@@ -92,6 +96,7 @@ const dibujar = () => {
     }
     console.log(index);
   }
+  detectarChoque();
   //   avanzar(controles.direccion.y, controles.direccion.x, cabeza);
   //dibujo la victima
   atrapado();
@@ -103,6 +108,19 @@ window.addEventListener("keydown", (e) => {
   controles.direccion.y = y;
   controles.rotate = z;
 });
+
+window.addEventListener("touchstart", function (e) {
+  let { x, y } = controles.touch;
+  x = e.touches[0].clientX;
+  y = e.touches[0].clientY;
+});
+window.addEventListener("touchmove", function (e) {
+  if (controles.touch.x > e.touches[0].clientX) stop.innerHTML = "izquierda";
+  if (controles.touch.x < e.touches[0].clientX) stop.innerHTML = "derecha";
+  if (controles.touch.y < e.touches[0].clientY) stop.innerHTML = "abajo";
+  if (controles.touch.y > e.touches[0].clientY) stop.innerHTML = "arriba";
+});
+
 const atrapado = () => {
   if (
     cabeza.style.top === victima.style.top &&
@@ -110,6 +128,7 @@ const atrapado = () => {
   ) {
     revictima();
     agregarCola();
+    puntajeTotal += 1000;
   }
 };
 
@@ -131,10 +150,21 @@ let agregarCola = () => {
   cola.classList.add("snake", "tail");
   container.appendChild(cola);
 };
-
+let detectarChoque = () => {
+  let [y, x] = cabeza.getAttribute("data-position").split(",");
+  if (y > 500 || y < 0 || x > 500 || x < 0) controles.jugando = false;
+};
+let actualizarPuntaje = () => {
+  ++puntajeTotal;
+  puntaje.innerHTML = puntajeTotal;
+};
 window.onload = () => {
   dibujarVictima(controles.victima.y, controles.victima.x);
+  controles.jugando = true;
   myInterval = setInterval(() => {
-    dibujar();
+    if (controles.jugando) {
+      dibujar();
+      actualizarPuntaje();
+    }
   }, 40);
 };
