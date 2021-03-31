@@ -208,8 +208,8 @@ canvas {
   display: grid;
   place-items: center;
   place-content: center;
-  grid-template-columns: 40px 40px 40px;
-  grid-template-rows: 40px 40px 40px;
+  grid-template-columns: 50px 50px 50px;
+  grid-template-rows: 50px 50px 50px;
   grid-template-areas:
     ". T ."
     "L . R"
@@ -226,14 +226,15 @@ canvas {
   display: grid;
   place-items: center;
 }
+
 .decorativo {
   position: absolute;
   width: 100%;
   height: 100%;
 }
 .decorativo-a {
-  width: 25px;
-  height: 1px;
+  width: 35px;
+  height: 2px;
   background: #fffdfd7c;
   position: absolute;
   top: 50%;
@@ -262,7 +263,7 @@ canvas {
 }
 .decorativo-b {
   width: 2px;
-  height: 25px;
+  height: 35px;
   background: #fffdfd7c;
   position: absolute;
   top: 50%;
