@@ -196,5 +196,5 @@ window.onload = () => {
       dibujar();
       actualizarPuntaje();
     }
-  }, 40);
+  }, 80);
 };
