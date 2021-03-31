@@ -390,6 +390,8 @@ canvas {
     border-left: solid #24242467 45px;
     border-bottom: solid #242424a4 45px;
     background: #a3bfb0d0;
+    width: 350px;
+    height: 600px;
     box-shadow: inset 5px 5px 10px #000000, inset -5px -5px 10px #0b0b0b;
     /* box-shadow: inset 5px 5px 8px 2px #bebebe, inset -5px -5px 8px 2px whitesmoke; */
   }

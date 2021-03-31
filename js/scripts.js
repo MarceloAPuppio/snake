@@ -1,7 +1,8 @@
 //CONSTANTES
 const INTERVALO = 400;
 const MOVIMIENTO = 10;
-const ANCHO = 500;
+let ANCHO = 500;
+let ALTO=500;
 const DIRECCION = {
   A: [-MOVIMIENTO, 0],
   D: [MOVIMIENTO, 0],
@@ -54,6 +55,10 @@ const btnMobileTop = document.querySelector("#btnMobileTop");
 const btnMobileRight = document.querySelector("#btnMobileRight");
 const btnMobileDown = document.querySelector("#btnMobileDown");
 
+
+
+
+
 btnMobileLeft.addEventListener("click", () => {
   let [x, y, z] = DIRECCION["ArrowLeft"];
   controles.direccion.x = x;
@@ -88,7 +93,7 @@ const avanzar = (top, left, element) => {
   previousLeft = elementStyles.getPropertyValue("left");
   arrayTop = previousTop.split("px")[0];
   arrayLeft = previousLeft.split("px")[0];
-  console.log(previousLeft, previousTop, arrayTop);
+  // console.log(previousLeft, previousTop, arrayTop);  
   incrementoX = +arrayLeft + left;
   incrementoY = +arrayTop + top;
   element.style.top = incrementoY + "px";
@@ -123,7 +128,7 @@ const dibujar = () => {
         serpiente[index]
       );
     }
-    console.log(index);
+    // console.log(index);
   }
   detectarChoque();
   //   avanzar(controles.direccion.y, controles.direccion.x, cabeza);
@@ -162,14 +167,15 @@ const atrapado = () => {
   }
 };
 
-let randomXY = (ANCHO) => {
+let randomXY = (ANCHO, ALTO) => {
   let x = Math.round((Math.random() * ANCHO) / MOVIMIENTO) * MOVIMIENTO;
-  let y = Math.round((Math.random() * ANCHO) / MOVIMIENTO) * MOVIMIENTO;
+  let y = Math.round((Math.random() * ALTO) / MOVIMIENTO) * MOVIMIENTO;
+  console.log('x:',x,'y:', y, 'Alto:', ALTO, 'ancho:', ANCHO)
   return { x: x, y: y };
 };
 
 let revictima = () => {
-  let { x, y } = randomXY(ANCHO);
+  let { x, y } = randomXY(ANCHO, ALTO);
   controles.victima.x = x;
   controles.victima.y = y;
   dibujarVictima(controles.victima.y, controles.victima.x);
@@ -182,16 +188,30 @@ let agregarCola = () => {
 };
 let detectarChoque = () => {
   let [y, x] = cabeza.getAttribute("data-position").split(",");
-  if (y > 500 || y < 0 || x > 500 || x < 0) controles.jugando = false;
+  if (y > ALTO|| y < 0 || x > ANCHO || x < 0) controles.jugando = false;
 };
 let actualizarPuntaje = () => {
   ++puntajeTotal;
   puntaje.innerHTML = puntajeTotal;
 };
 window.onload = () => {
-  dibujarVictima(controles.victima.y, controles.victima.x);
+  //Queries
+
+  revictima()
+   
   controles.jugando = true;
   myInterval = setInterval(() => {
+    let mediaqueryListMobile = window.matchMedia("(max-width: 768px)");
+let mediaqueryListDesktop = window.matchMedia("(min-width: 769px)");
+  if(mediaqueryListMobile.matches){
+    ANCHO = 350;
+    ALTO=600;
+    console.log('celular')
+  }
+  if(mediaqueryListDesktop.matches){
+    ANCHO = 500;
+    ALTO=500;
+  }
     if (controles.jugando) {
       dibujar();
       actualizarPuntaje();
