@@ -16,7 +16,7 @@ body {
   grid-template-rows: 1fr;
   grid-template-areas: "score game buttons";
   background: #979797;
-  background: #333333;
+  background: #181818;
 
   place-items: center;
   height: 100vh;
@@ -95,18 +95,28 @@ canvas {
 } */
 
 .snake-wrapper {
+  box-sizing: content-box;
   grid-area: "game";
   position: relative;
   border-radius: 5px;
   width: 500px;
   height: 500px;
-  border-radius: 5px;
-  /* background: linear-gradient(145deg, #070707, #090909); */
   background: #333333;
-  box-shadow: 5px 5px 10px #050505, -5px -5px 10px #0b0b0b;
+  background: #24242488;
+  box-shadow: inset 5px 5px 10px #000000, inset -5px -5px 10px #0b0b0b;
   /* box-shadow: inset 5px 5px 8px 2px #bebebe, inset -5px -5px 8px 2px whitesmoke; */
   overflow: hidden;
 }
+/* .snake-wrapper::before {
+  left: 0;
+  position: absolute;
+  content: "";
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.205);
+  backdrop-filter: blur(5px);
+} */
+
 /* .snake-wrapper::before {
   content: "";
   position: absolute;
@@ -371,7 +381,16 @@ canvas {
     grid-template-rows: 1fr 500px 1fr;
     grid-template-areas: "score" "game" "buttons";
   }
+
   .snake-wrapper {
     transform: scale(0.7);
+    box-sizing: content-box;
+    border: solid #333333 45px;
+    border-right: solid #333333cb 45px;
+    border-left: solid #24242467 45px;
+    border-bottom: solid #242424a4 45px;
+    background: #a3bfb0d0;
+    box-shadow: inset 5px 5px 10px #000000, inset -5px -5px 10px #0b0b0b;
+    /* box-shadow: inset 5px 5px 8px 2px #bebebe, inset -5px -5px 8px 2px whitesmoke; */
   }
 }

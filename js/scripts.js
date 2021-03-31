@@ -49,6 +49,35 @@ let controles = {
 //hago referencia a la serpiente
 const container = document.querySelector(".snake-wrapper");
 const serpiente = document.querySelectorAll(".snake");
+const btnMobileLeft = document.querySelector("#btnMobileLeft");
+const btnMobileTop = document.querySelector("#btnMobileTop");
+const btnMobileRight = document.querySelector("#btnMobileRight");
+const btnMobileDown = document.querySelector("#btnMobileDown");
+
+btnMobileLeft.addEventListener("click", () => {
+  let [x, y, z] = DIRECCION["ArrowLeft"];
+  controles.direccion.x = x;
+  controles.direccion.y = y;
+  controles.rotate = z;
+});
+btnMobileTop.addEventListener("click", () => {
+  let [x, y, z] = DIRECCION["ArrowUp"];
+  controles.direccion.x = x;
+  controles.direccion.y = y;
+  controles.rotate = z;
+});
+btnMobileDown.addEventListener("click", () => {
+  let [x, y, z] = DIRECCION["ArrowDown"];
+  controles.direccion.x = x;
+  controles.direccion.y = y;
+  controles.rotate = z;
+});
+btnMobileRight.addEventListener("click", () => {
+  let [x, y, z] = DIRECCION["ArrowRight"];
+  controles.direccion.x = x;
+  controles.direccion.y = y;
+  controles.rotate = z;
+});
 const cabeza = serpiente[0];
 //hago referencia a la víctima
 const victima = document.querySelector(".victima");
