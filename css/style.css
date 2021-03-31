@@ -18,7 +18,6 @@ body {
   background: #979797;
   background: #333333;
 
-
   place-items: center;
   height: 100vh;
   width: 100%;
@@ -165,13 +164,13 @@ canvas {
   width: 10px;
   height: 10px;
   position: absolute;
-  background: red;
+  /* background: red; */
   /* top: 0;
   left: 0; */
 }
 .victima::before {
   content: "🍎";
-  color: red;/*comentar porque al ser un emoji, en otras compus se ve bien*/
+  color: red; /*comentar porque al ser un emoji, en otras compus se ve bien*/
   filter: drop-shadow(0px 0px 10px red);
   line-height: 0;
   font-size: 16px;
@@ -179,10 +178,149 @@ canvas {
   top: 5px;
   left: -3px;
 }
-#stop {
+/* <div class="botonera-tetris ♥">
+<div class="botonera__flechas♥">
+    <div class="botonera__flechas-btn left♥">L</div>
+    <div class="botonera__flechas-btn top♥">T</div>
+    <div class="botonera__flechas-btn right♥">R</div>
+    <div class="botonera__flechas-btn down♥">D</div>
+</div>
+<div class="botonera__play-stop"><button id="stop">Pausar</button></div>
+</div> */
+
+.botonera-tetris {
   grid-area: buttons;
+  width: 100%;
+  height: 150px;
+  /* background: rosybrown; */
+  display: grid;
+  grid-template-columns: 40% 60%;
+  grid-template-rows: 100%;
+  place-items: center;
+  grid-template-areas:
+    "flechas play"
+    "flechas play";
 }
-.puntaje-wrapper{
+.botonera__flechas {
+  grid-area: flechas;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  place-content: center;
+  grid-template-columns: 40px 40px 40px;
+  grid-template-rows: 40px 40px 40px;
+  grid-template-areas:
+    ". T ."
+    "L . R"
+    ". D .";
+  position: relative;
+}
+.botonera__flechas-btn {
+  height: 35px;
+  width: 35px;
+  background: #fbdd31;
+  border: none;
+  box-shadow: 2px 2px 8px 2px #050505, -2px -2px 8px #0b0b0b63;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+}
+.decorativo {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+.decorativo-a {
+  width: 25px;
+  height: 1px;
+  background: #fffdfd7c;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.decorativo-a::before {
+  position: absolute;
+  content: "";
+  width: 0px;
+  height: 0px;
+  border: solid transparent 4px;
+  border-right: solid #fffdfd7c 4px;
+  left: -8px;
+  top: -3px;
+}
+.decorativo-a::after {
+  position: absolute;
+  content: "";
+  width: 0px;
+  height: 0px;
+  border: solid transparent 4px;
+  border-left: solid #fffdfd7c 4px;
+  right: -8px;
+  top: -3px;
+}
+.decorativo-b {
+  width: 2px;
+  height: 25px;
+  background: #fffdfd7c;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.decorativo-b::after {
+  position: absolute;
+  content: "";
+  width: 0px;
+  height: 0px;
+  border: solid transparent 4px;
+  border-bottom: solid #fffdfd7c 4px;
+  right: -3px;
+  top: -7px;
+}
+.decorativo-b::before {
+  position: absolute;
+  content: "";
+  width: 0px;
+  height: 0px;
+  border: solid transparent 4px;
+  border-top: solid #fffdfd7c 4px;
+  right: -3px;
+  bottom: -7px;
+}
+.left {
+  grid-area: L;
+}
+.right {
+  grid-area: R;
+}
+.top {
+  grid-area: T;
+}
+.down {
+  grid-area: D;
+}
+
+.botonera__play-stop {
+  grid-area: play;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+}
+.botonera__play-stop__btn {
+  height: 60px;
+  width: 60px;
+  background: #fbdd31;
+  border: none;
+  box-shadow: 2px 2px 8px 2px #050505, -2px -2px 8px #0b0b0b63;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+}
+
+.puntaje-wrapper {
   grid-area: score;
   font-family: gamer;
   position: relative;
@@ -190,35 +328,32 @@ canvas {
 .marcador {
   font-size: 25px;
   color: whitesmoke;
-  top:0;
+  top: 0;
 }
 .marcador__puntaje {
   color: whitesmoke;
   text-shadow: -2px 0px 10px;
 }
-.bonus{
+.bonus {
   display: block;
   color: white;
   transition: all 0.5s ease-in;
-  animation: aparecer 2s infinite;
+  /* animation: aparecer 2s infinite; */
   top: 0;
   left: 0;
- 
 }
-@keyframes aparecer{
-  0%{
-  transform: scale(0);     
-
+@keyframes aparecer {
+  0% {
+    transform: scale(0);
   }
-  50%{
-    transform: scale(6);     
-  
-}
+  50% {
+    transform: scale(6);
+  }
 
-100%{
-  transform: scale(0);     
+  100% {
+    transform: scale(0);
+  }
 }
-} 
 /* .puntaje-wrapper:hover .bonus{
   top:0;
   font-size: 50px;
