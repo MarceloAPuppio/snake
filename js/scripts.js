@@ -168,8 +168,8 @@ const atrapado = () => {
 };
 
 let randomXY = (ANCHO, ALTO) => {
-  let x = Math.round((Math.random() * ANCHO) / MOVIMIENTO) * MOVIMIENTO;
-  let y = Math.round((Math.random() * ALTO) / MOVIMIENTO) * MOVIMIENTO;
+  let x = Math.round((Math.random() * ALTO) / MOVIMIENTO) * MOVIMIENTO;
+  let y = Math.round((Math.random() * ANCHO) / MOVIMIENTO) * MOVIMIENTO;
   console.log('x:',x,'y:', y, 'Alto:', ALTO, 'ancho:', ANCHO)
   return { x: x, y: y };
 };
