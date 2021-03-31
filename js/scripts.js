@@ -138,17 +138,18 @@ window.addEventListener("keydown", (e) => {
   controles.rotate = z;
 });
 
-window.addEventListener("touchstart", function (e) {
-  let { x, y } = controles.touch;
-  x = e.touches[0].pageX;
-  y = e.touches[0].pageY;
-});
-window.addEventListener("touchmove", function (e) {
-  stop.innerHTML = `x:${e.touches[0].pageX} y:${e.touches[0].pageY}`;
-  // if (controles.touch.x < e.touches[0].pageX) stop.innerHTML = "derecha";
-  // if (controles.touch.y < e.touches[0].pageY) stop.innerHTML = "abajo";
-  // if (controles.touch.y > e.touches[0].pageY) stop.innerHTML = "arriba";
-});
+//Intento de hacer movimintos touch... próximamente
+// window.addEventListener("touchstart", function (e) {
+//   let { x, y } = controles.touch;
+//   x = e.touches[0].pageX;
+//   y = e.touches[0].pageY;
+// });
+// window.addEventListener("touchmove", function (e) {
+//   stop.innerHTML = `x:${e.touches[0].pageX} y:${e.touches[0].pageY}`;
+//   // if (controles.touch.x < e.touches[0].pageX) stop.innerHTML = "derecha";
+//   // if (controles.touch.y < e.touches[0].pageY) stop.innerHTML = "abajo";
+//   // if (controles.touch.y > e.touches[0].pageY) stop.innerHTML = "arriba";
+// });
 
 const atrapado = () => {
   if (
