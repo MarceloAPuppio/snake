@@ -383,7 +383,7 @@ canvas {
   }
 
   .snake-wrapper {
-    transform: scale(0.9);
+    transform: scale(0.7);
     box-sizing: content-box;
     border: solid #333333 45px;
     border-right: solid #333333cb 45px;
