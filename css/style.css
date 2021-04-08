@@ -42,7 +42,6 @@ canvas {
   letter-spacing: 6px;
   line-height: 70px;
   display: flex;
-  display: none; /*eliminar esta linea*/
   flex-flow: column wrap;
   justify-content: center;
   align-items: center;
