@@ -46,6 +46,7 @@ canvas {
   justify-content: center;
   align-items: center;
   align-content: center;
+  display: none;
 }
 .gameover:hover .firstWord,
 .gameover:hover .secondWord {
@@ -102,9 +103,9 @@ canvas {
   height: 500px;
   background: #333333;
   background: #24242488;
-  box-shadow: inset 5px 5px 10px #000000, inset -5px -5px 10px #0b0b0b;
+  /* box-shadow: 5px 5px 10px #000000, -5px -5px 10px #0b0b0b; */
   /* box-shadow: inset 5px 5px 8px 2px #bebebe, inset -5px -5px 8px 2px whitesmoke; */
-  /* overflow: hidden; */
+  overflow: hidden;
 }
 /* .snake-wrapper::before {
   left: 0;
@@ -134,8 +135,8 @@ canvas {
 }
 .head {
   background: chartreuse;
-  top: 0;
-  left: 0;
+  top: 10px;
+  left: 10px;
   border-radius: 3px 3px 6px 6px;
   display: grid;
   place-items: center;
@@ -155,8 +156,8 @@ canvas {
 
 .tail {
   background: rgb(117, 204, 31);
-  top: 0;
-  left: 0;
+  /* top: 0;
+  left: 0; */
   border-radius: 3px;
   border: solid rgb(149, 209, 167) 1px;
   /* transition: all 75ms; */
@@ -202,7 +203,7 @@ canvas {
   width: 100%;
   height: 150px;
   /* background: rosybrown; */
-  display: grid;
+  display: none;
   grid-template-columns: 50% 50%;
   grid-template-rows: 100%;
   place-items: center;
@@ -379,6 +380,9 @@ canvas {
     grid-template-columns: 1fr;
     grid-template-rows: 1fr 500px 1fr;
     grid-template-areas: "score" "game" "buttons";
+  }
+  .botonera-tetris {
+    display: grid;
   }
 
   .snake-wrapper {
