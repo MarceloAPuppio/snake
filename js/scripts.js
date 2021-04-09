@@ -45,6 +45,7 @@ let controles = {
   victima: { x: 0, y: 250 },
   rotate: 0,
   jugando: false,
+  vidas: 3,
   touch: { x: 0, y: 0 },
 };
 //hago referencia a la serpiente
@@ -86,7 +87,10 @@ tryAgain.addEventListener("click", () => {
   controles.rotate = 0;
   serpiente[0].style.top = "0px";
   serpiente[0].style.left = "0px";
-
+  controles.vidas = 3;
+  const vidas = document.getElementById("vidas");
+  vidas.innerHTML = "💗 💗 💗";
+  puntajeTotal = 0;
   jugar();
 });
 const cabeza = serpiente[0];
@@ -202,9 +206,7 @@ let detectarChoque = () => {
 
   let [y, x] = cabeza.getAttribute("data-position").split(",");
   if (y >= ALTO || y < 0 || x >= ANCHO || x < 0) {
-    controles.jugando = false;
-    gameOver.style.display = "flex";
-    clearInterval(myInterval);
+    vidasPerdiste();
   }
   for (let index = 0; index < serpiente.length; index++) {
     if (
@@ -212,9 +214,7 @@ let detectarChoque = () => {
       y === serpiente[index].getAttribute("data-position").split(",")[0] &&
       x === serpiente[index].getAttribute("data-position").split(",")[1]
     ) {
-      controles.jugando = false;
-      gameOver.style.display = "flex";
-      clearInterval(myInterval);
+      vidasPerdiste();
     }
   }
 };
@@ -227,7 +227,35 @@ let asignarDirecciones = (x, y, z) => {
   controles.direccion.y = y;
   controles.rotate = z;
 };
-
+const vidasPerdiste = () => {
+  controles.vidas -= 1;
+  const vidas = document.getElementById("vidas");
+  switch (controles.vidas) {
+    case 2:
+      vidas.innerHTML = "💗 💗 🖤";
+      break;
+    case 1:
+      vidas.innerHTML = "💗 🖤 🖤";
+      break;
+    case 0:
+      vidas.innerHTML = "🖤 🖤 🖤";
+      break;
+  }
+  if (controles.vidas > 0) {
+    // controles.jugando = true;
+    controles.direccion.x = 0;
+    controles.direccion.y = 10;
+    controles.rotate = 0;
+    serpiente[0].style.top = "0px";
+    serpiente[0].style.left = "0px";
+    clearInterval(myInterval);
+    jugar();
+  } else {
+    controles.jugando = false;
+    gameOver.style.display = "flex";
+    clearInterval(myInterval);
+  }
+};
 const jugar = () => {
   myInterval = setInterval(() => {
     let mediaqueryListMobile = window.matchMedia("(max-width: 768px)");
