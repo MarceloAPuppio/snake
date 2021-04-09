@@ -338,7 +338,8 @@ canvas {
 .marcador {
   font-size: 25px;
   color: whitesmoke;
-  top: 0;
+  margin-left: 100px;
+  margin-top: -100px;
 }
 .marcador__puntaje {
   color: whitesmoke;
@@ -388,7 +389,10 @@ canvas {
     display: grid;
     margin-bottom: 50px;
   }
-
+  .marcador {
+    margin-left: 0px;
+    margin-top: 0px;
+  }
   .snake-wrapper {
     transform: scale(0.7);
     box-sizing: content-box;
