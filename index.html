@@ -6,6 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="css/style.css">
+      <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/8.2.6/firebase-app.js"></script>
+
+  <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
+  <script src="https://www.gstatic.com/firebasejs/8.2.6/firebase-analytics.js"></script>
+
+  <!-- Add Firebase products that you want to use -->
+  <script src="https://www.gstatic.com/firebasejs/8.2.6/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.2.6/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.2.6/firebase-database.js"></script>
 </head>
 <body>
     <div class="snake-wrapper">
@@ -15,6 +25,16 @@
         <h2 class="firstWord translateDown">GAME</h2>
         <h2 class="secondWord translateTop">OVER</h2>
         <button class="gameover__btn" id="tryagain">Try Again</button>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>#</th><th>Nombre</th><th>Puntaje</th>
+                </tr>
+            </thead>
+            <tbody id="tbody">
+
+            </tbody>
+        </table>
     </div>
     </div>
     <div class="botonera-tetris">
@@ -36,7 +56,6 @@
         <p class="vidas" id="vidas">💗 💗 💗</p>
         <!-- <p class="bonus">+1000</p> -->
     </div>
-    
     <script src="js/scripts.js"></script>
 
 </body>

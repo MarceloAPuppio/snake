@@ -89,6 +89,25 @@ canvas {
   border: dashed 2px rgb(25, 196, 25);
   background: transparent;
 }
+.table {
+  height: 100px;
+  overflow-y: scroll;
+  line-height: 12px;
+  margin: 20px 0;
+  border-spacing: 10px;
+}
+.table thead {
+  color: white;
+  font-size: 16px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.table tbody {
+  font-size: 12px;
+}
+.table tbody tr:first-child {
+  color: gold;
+}
+
 /* .translateDown {
   top: 0;
 }

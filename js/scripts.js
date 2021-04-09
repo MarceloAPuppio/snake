@@ -1,3 +1,12 @@
+const config = {
+  apiKey: "AIzaSyDaxbNEb2KyBnEE2_MV3PmgE3Dw7RgNZyQ",
+  authDomain: "puppio-chat.firebaseapp.com",
+  projectId: "puppio-chat",
+  storageBucket: "puppio-chat.appspot.com",
+  messagingSenderId: "617150733560",
+  appId: "1:617150733560:web:c835c6c43eec98a2446f0d",
+};
+firebase.initializeApp(config);
 //CONSTANTES
 const INTERVALO = 40;
 const MOVIMIENTO = 10;
@@ -50,6 +59,7 @@ let controles = {
 };
 //hago referencia a la serpiente
 const gameOver = document.querySelector("#gameover");
+const tBody = document.getElementById("tbody");
 const tryAgain = document.querySelector("#tryagain");
 const container = document.querySelector(".snake-wrapper");
 const serpiente = document.querySelectorAll(".snake");
@@ -254,6 +264,8 @@ const vidasPerdiste = () => {
     controles.jugando = false;
     gameOver.style.display = "flex";
     clearInterval(myInterval);
+    recuperarMensajes();
+    // guardarScore();
   }
 };
 const jugar = () => {
@@ -274,9 +286,66 @@ const jugar = () => {
     }
   }, INTERVALO);
 };
+guardarScore = (nombre, score) => {
+  const record = {
+    jugador: nombre,
+    score: score,
+    // txt: inputMessage.value,
+    // hour: getDate(),
+  };
+  const db = firebase.database();
+  const dbRef = db.ref("snake");
+  const newMessage = dbRef.push();
+  newMessage.set(record);
+};
+recuperarMensajes = () => {
+  const db = firebase.database();
+  const dbRef = db.ref("snake");
+  dbRef.once("value", (snapchot) => {
+    let recover = snapchot.val()
+      ? snapchot.val()
+      : { id: { nombre: "pepe", score: 0 } };
+    let arrayScores = Object.values(recover);
+    let arraySort = arrayScores.sort((a, b) => b.score - a.score);
+    console.log(arraySort);
+    for (const puntajes of arrayScores) {
+      if (puntajeTotal > puntajes.score) {
+        let nombre = prompt("Ingresá tu nombre");
+        guardarScore(nombre, puntajeTotal);
+        leaderBoard();
+        break;
+      }
+    }
+  });
+};
+leaderBoard = () => {
+  const db = firebase.database();
+  const dbRef = db.ref("snake");
+  dbRef.once("value", (snapchot) => {
+    let recover = snapchot.val();
+    let arrayScores = Object.values(recover);
+    let arraySort = arrayScores.sort((a, b) => b.score - a.score);
+    arraySort.length = 5;
+    tBody.innerHTML = "";
+    arraySort.forEach((item, index) => {
+      // let df= document.createDocumentFragment();
+      let tr = document.createElement("tr");
+      let tdPuesto = document.createElement("td");
+      tdPuesto.innerHTML = index + 1;
+      let tdNombre = document.createElement("td");
+      tdNombre.innerHTML = item.jugador;
+      let tdScore = document.createElement("td");
+      tdScore.innerHTML = item.score;
+      tr.appendChild(tdPuesto);
+      tr.appendChild(tdNombre);
+      tr.appendChild(tdScore);
+      tBody.appendChild(tr);
+    });
+  });
+};
 window.onload = () => {
   //Queries
-
+  leaderBoard();
   revictima();
   controles.jugando = true;
   jugar();
