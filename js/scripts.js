@@ -9,7 +9,7 @@ const DIRECCION = {
   S: [0, MOVIMIENTO],
   W: [0, -MOVIMIENTO],
   a: [-MOVIMIENTO, 0],
-  d: [1, 0],
+  d: [MOVIMIENTO, 0],
   s: [0, MOVIMIENTO],
   w: [0, -MOVIMIENTO],
   ArrowUp: [

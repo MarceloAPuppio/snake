@@ -38,6 +38,7 @@ canvas {
   background: #000000;
   position: absolute;
   top: 0;
+  color: rgb(83, 83, 83);
   backdrop-filter: blur(5px);
   font-family: gamer;
   font-size: 48px;
@@ -60,7 +61,7 @@ canvas {
   text-shadow: 0 2px 5px rgb(25, 196, 25);
 }
 .firstWord {
-  transition: all 0.3s ease-in-out;
+  transition: all 0.1s ease-in-out;
   position: relative;
   /* top: -500px; descomentar para efecto hover*/
   margin: 0;
@@ -68,7 +69,7 @@ canvas {
 .secondWord {
   /* top: 1000px; descomentar para efecot hover*/
   position: relative;
-  transition: all 0.8s cubic-bezier(0.18, 0.89, 0.34, 1.27);
+  transition: all 0.08s ease-in-out;
   margin: 0;
 }
 .gameover:hover .gameover__btn {
@@ -372,11 +373,20 @@ canvas {
   body {
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 1fr 500px 1fr;
+    grid-template-rows: 80px 500px 1fr;
     grid-template-areas: "score" "game" "buttons";
+  }
+  body {
+    background: rgb(12, 12, 12);
+  }
+  .gameover {
+    width: 350px;
+    height: 600px;
+    display: none;
   }
   .botonera-tetris {
     display: grid;
+    margin-bottom: 50px;
   }
 
   .snake-wrapper {
