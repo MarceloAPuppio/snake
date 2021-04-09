@@ -1,5 +1,5 @@
 //CONSTANTES
-const INTERVALO = 400;
+const INTERVALO = 40;
 const MOVIMIENTO = 10;
 let ANCHO = 500;
 let ALTO = 500;
@@ -48,6 +48,8 @@ let controles = {
   touch: { x: 0, y: 0 },
 };
 //hago referencia a la serpiente
+const gameOver = document.querySelector("#gameover");
+const tryAgain = document.querySelector("#tryagain");
 const container = document.querySelector(".snake-wrapper");
 const serpiente = document.querySelectorAll(".snake");
 const btnMobileLeft = document.querySelector("#btnMobileLeft");
@@ -74,6 +76,18 @@ btnMobileRight.addEventListener("click", () => {
   let [x, y, z] = DIRECCION["ArrowRight"];
   if (x !== controles.direccion.x && y !== controles.direccion.y)
     asignarDirecciones(x, y, z);
+});
+tryAgain.addEventListener("click", () => {
+  gameOver.style.display = "none";
+  document.querySelectorAll(".tail").forEach((el) => el.remove());
+  controles.jugando = true;
+  controles.direccion.x = 0;
+  controles.direccion.y = 10;
+  controles.rotate = 0;
+  serpiente[0].style.top = "0px";
+  serpiente[0].style.left = "0px";
+
+  jugar();
 });
 const cabeza = serpiente[0];
 //hago referencia a la víctima
@@ -106,7 +120,6 @@ const dibujarVictima = (x, y) => {
 const dibujar = () => {
   //dibujo la serpiente
   let serpiente = document.querySelectorAll(".snake");
-
   let size = serpiente.length;
 
   for (let index = size - 1; index >= 0; index--) {
@@ -165,9 +178,10 @@ const atrapado = () => {
 
 let randomXY = (ANCHO, ALTO) => {
   let x =
-    Math.round((Math.random() * ALTO - MOVIMIENTO) / MOVIMIENTO) * MOVIMIENTO;
+    Math.round((Math.random() * (ALTO - MOVIMIENTO)) / MOVIMIENTO) * MOVIMIENTO;
   let y =
-    Math.round((Math.random() * ANCHO - MOVIMIENTO) / MOVIMIENTO) * MOVIMIENTO;
+    Math.round((Math.random() * (ANCHO - MOVIMIENTO)) / MOVIMIENTO) *
+    MOVIMIENTO;
   return { x: x, y: y };
 };
 
@@ -175,7 +189,6 @@ let revictima = () => {
   let { x, y } = randomXY(ANCHO, ALTO);
   controles.victima.x = x;
   controles.victima.y = y;
-  console.log("x:", x, "Y", y);
   dibujarVictima(controles.victima.y, controles.victima.x);
 };
 let agregarCola = () => {
@@ -188,17 +201,21 @@ let detectarChoque = () => {
   let serpiente = document.querySelectorAll(".snake");
 
   let [y, x] = cabeza.getAttribute("data-position").split(",");
-  if (y > ALTO || y < 0 || x > ANCHO || x < 0) {
+  if (y >= ALTO || y < 0 || x >= ANCHO || x < 0) {
     controles.jugando = false;
+    gameOver.style.display = "flex";
+    clearInterval(myInterval);
   }
   for (let index = 0; index < serpiente.length; index++) {
-    console.log(serpiente.length);
     if (
       index !== 0 &&
       y === serpiente[index].getAttribute("data-position").split(",")[0] &&
       x === serpiente[index].getAttribute("data-position").split(",")[1]
-    )
+    ) {
       controles.jugando = false;
+      gameOver.style.display = "flex";
+      clearInterval(myInterval);
+    }
   }
 };
 let actualizarPuntaje = () => {
@@ -226,9 +243,8 @@ const jugar = () => {
     if (controles.jugando) {
       dibujar();
       actualizarPuntaje();
-      console.log();
     }
-  }, 40);
+  }, INTERVALO);
 };
 window.onload = () => {
   //Queries
