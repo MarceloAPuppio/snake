@@ -59,7 +59,11 @@ let controles = {
 };
 //hago referencia a la serpiente
 const gameOver = document.querySelector("#gameover");
+const audioGameOver = document.querySelector("#audioGameOver");
+const audioLifeLost = document.querySelector("#audioLifeLost");
+const audioEat = document.querySelector("#audioEat");
 const tBody = document.getElementById("tbody");
+const bonus = document.getElementById("bonus");
 const tryAgain = document.querySelector("#tryagain");
 const container = document.querySelector(".snake-wrapper");
 const serpiente = document.querySelectorAll(".snake");
@@ -95,8 +99,7 @@ tryAgain.addEventListener("click", () => {
   controles.direccion.x = 0;
   controles.direccion.y = 10;
   controles.rotate = 0;
-  serpiente[0].style.top = "0px";
-  serpiente[0].style.left = "0px";
+
   controles.vidas = 3;
   const vidas = document.getElementById("vidas");
   vidas.innerHTML = "💗 💗 💗";
@@ -183,6 +186,7 @@ const atrapado = () => {
     cabeza.style.top === victima.style.top &&
     cabeza.style.left === victima.style.left
   ) {
+    audioEat.play();
     revictima();
     agregarCola();
 
@@ -238,6 +242,7 @@ let asignarDirecciones = (x, y, z) => {
   controles.rotate = z;
 };
 const vidasPerdiste = () => {
+  audioLifeLost.play();
   controles.vidas -= 1;
   const vidas = document.getElementById("vidas");
   switch (controles.vidas) {
@@ -256,11 +261,12 @@ const vidasPerdiste = () => {
     controles.direccion.x = 0;
     controles.direccion.y = 10;
     controles.rotate = 0;
-    serpiente[0].style.top = "0px";
-    serpiente[0].style.left = "0px";
+
     clearInterval(myInterval);
-    jugar();
+
+    cuentaRegresiva();
   } else {
+    audioGameOver.play();
     controles.jugando = false;
     gameOver.style.display = "flex";
     clearInterval(myInterval);
@@ -269,6 +275,10 @@ const vidasPerdiste = () => {
   }
 };
 const jugar = () => {
+  let { x, y } = randomXY(ANCHO, ALTO);
+  console.log(x, y);
+  serpiente[0].style.top = `${y}px`;
+  serpiente[0].style.left = `${x}px`;
   myInterval = setInterval(() => {
     let mediaqueryListMobile = window.matchMedia("(max-width: 768px)");
     let mediaqueryListDesktop = window.matchMedia("(min-width: 769px)");
@@ -308,13 +318,10 @@ recuperarMensajes = () => {
     let arrayScores = Object.values(recover);
     let arraySort = arrayScores.sort((a, b) => b.score - a.score);
     console.log(arraySort);
-    for (const puntajes of arrayScores) {
-      if (puntajeTotal > puntajes.score) {
-        let nombre = prompt("Ingresá tu nombre");
-        guardarScore(nombre, puntajeTotal);
-        leaderBoard();
-        break;
-      }
+    if (puntajeTotal > arraySort[4].score) {
+      let nombre = prompt("Ingresá tu nombre");
+      guardarScore(nombre, puntajeTotal);
+      leaderBoard();
     }
   });
 };
@@ -343,10 +350,22 @@ leaderBoard = () => {
     });
   });
 };
+const cuentaRegresiva = () => {
+  setTimeout(() => {
+    bonus.innerHTML = "2";
+  }, 500);
+  setTimeout(() => {
+    bonus.innerHTML = "1";
+  }, 1500);
+  setTimeout(() => {
+    bonus.innerHTML = "GO";
+    jugar();
+  }, 2000);
+};
 window.onload = () => {
   //Queries
   leaderBoard();
   revictima();
   controles.jugando = true;
-  jugar();
+  cuentaRegresiva();
 };

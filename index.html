@@ -18,6 +18,10 @@
   <script src="https://www.gstatic.com/firebasejs/8.2.6/firebase-database.js"></script>
 </head>
 <body>
+    <audio src="https://freesound.org/data/previews/382/382310_5421751-lq.mp3" id="audioLifeLost"></audio>
+    <audio src="https://freesound.org/data/previews/533/533034_6299573-lq.mp3" id="audioGameOver"></audio>
+    <audio src="https://freesound.org/data/previews/554/554708_10912485-lq.mp3" id="audioEat"></audio>
+      
     <div class="snake-wrapper">
     <div class="snake head"></div>
     <div class="victima"></div>
@@ -54,7 +58,7 @@
     <div class="puntaje-wrapper">
         <p class="marcador">Puntaje: <span id="puntaje" class="marcador__puntaje">0</span></p>
         <p class="vidas" id="vidas">💗 💗 💗</p>
-        <!-- <p class="bonus">+1000</p> -->
+        <p class="bonus" id="bonus"></p>
     </div>
     <script src="js/scripts.js"></script>
 
